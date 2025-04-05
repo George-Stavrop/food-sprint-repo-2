@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: springboot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: springboot
+  template:
+    metadata:
+      labels:
+        component: springboot
+    spec:
+      containers:
+        - name: springboot
+          image: georgeestav/springboot
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: springboot-config
+          env:
+            - name: STRIPE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: stripe-key
+                  key: STRIPE_KEY
+          imagePullPolicy: Always
