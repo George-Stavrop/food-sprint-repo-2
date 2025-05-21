@@ -49,7 +49,9 @@ public class AppConfig {
                 CorsConfiguration config = new CorsConfiguration();
                 config.setAllowedOrigins(Arrays.asList(
                         "http://localhost:8000",
-                        "http://foodsprint.ddns-ip.net"
+                        "http://foodsprint.ddns-ip.net",
+                        "https://foodsprint.ddns-ip.net",
+                        "http://20.224.124.59:30000"
                 ));
                 config.setAllowedMethods(Collections.singletonList("*"));
                 config.setAllowCredentials(true);
