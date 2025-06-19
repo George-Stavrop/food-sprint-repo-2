@@ -75,10 +75,6 @@ public class RestaurantServiceImpl implements RestaurantService{
         return restaurantRepository.findAll();
     }
 
-    @Override
-    public List<Restaurant> searchRestaurants(String keyword) {
-        return restaurantRepository.findBySearchQuery(keyword);
-    }
 
     @Override
     public Restaurant findRestaurantById(Long id) throws Exception {
@@ -101,38 +97,6 @@ public class RestaurantServiceImpl implements RestaurantService{
         return restaurant;
     }
 
-    @Override
-    public RestaurantDto addToFavorites(Long restaurantId, User user) throws Exception {
-
-        Restaurant restaurant = findRestaurantById(restaurantId);
-
-        RestaurantDto dto = new RestaurantDto();
-        dto.setDescription(restaurant.getDescription());
-        dto.setImages(restaurant.getImages());
-        dto.setTitle(restaurant.getName());
-        dto.setId(restaurant.getId());
-
-
-
-
-        boolean isFavorited = false;
-        List<RestaurantDto> favorites =  user.getFavorites();
-        for (RestaurantDto favorite : favorites) {
-            if (favorite.getId().equals(restaurantId)) {
-                isFavorited = true;
-                break;
-            }
-        }
-
-        if (isFavorited) {
-            favorites.removeIf(favorite -> favorite.getId().equals(restaurantId));
-        } else {
-            favorites.add(dto);
-        }
-
-        userRepository.save(user);
-        return dto;
-    }
 
     @Override
     public Restaurant updateRestaurantStatus(Long id) throws Exception {

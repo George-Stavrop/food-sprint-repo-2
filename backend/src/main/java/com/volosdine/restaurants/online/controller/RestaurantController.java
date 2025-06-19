@@ -21,17 +21,6 @@ public class RestaurantController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/search")
-    public ResponseEntity<List<Restaurant>> searchRestaurant(
-            @RequestHeader("Authorization") String jwt,
-            @RequestParam String keyword
-            ) throws Exception {
-
-        User user = userService.findUserByJwtToken(jwt);
-
-        List<Restaurant> restaurant = restaurantService.searchRestaurants(keyword);
-        return new ResponseEntity<>(restaurant, HttpStatus.OK);
-    }
 
     @GetMapping()
     public ResponseEntity<List<Restaurant>> getAllRestaurants(
@@ -56,15 +45,4 @@ public class RestaurantController {
         return new ResponseEntity<>(restaurant, HttpStatus.OK);
     }
 
-    @PutMapping("/{id}/add-favorites")
-    public ResponseEntity<RestaurantDto> addToFavorites(
-            @RequestHeader("Authorization") String jwt,
-            @PathVariable Long id
-    ) throws Exception
-    {
-        User user = userService.findUserByJwtToken(jwt);
-
-        RestaurantDto restaurant = restaurantService.addToFavorites(id,user);
-        return new ResponseEntity<>(restaurant, HttpStatus.OK);
-    }
 }

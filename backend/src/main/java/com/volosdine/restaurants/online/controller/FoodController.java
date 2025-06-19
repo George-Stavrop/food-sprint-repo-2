@@ -27,16 +27,6 @@ public class FoodController {
     @Autowired
     private RestaurantService restaurantService;
 
-    @GetMapping("/search")
-    public ResponseEntity<List<Food>> searchFood(@RequestParam String name,
-                                           @RequestHeader("Authorization") String jwt) throws  Exception {
-        User user = userService.findUserByJwtToken(jwt);
-
-        List<Food> food = foodService.searchFood(name);
-
-        return new ResponseEntity<>(food, HttpStatus.CREATED);
-    }
-
 
     @GetMapping("/restaurant/{restaurantId}")
     public ResponseEntity<List<Food>> getRestaurantFood(

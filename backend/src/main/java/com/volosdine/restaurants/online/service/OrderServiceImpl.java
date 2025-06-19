@@ -91,11 +91,7 @@ public class OrderServiceImpl implements OrderService{
         throw new Exception("Please select a valid order Status");
     }
 
-    @Override
-    public void cancelOrder(Long orderId) throws Exception {
-        Order order = findOrderById(orderId);
-        orderRepository.deleteById(orderId);
-    }
+
 
     @Override
     public List<Order> getUsersOrder(Long userId) throws Exception {

@@ -18,21 +18,7 @@ export const findCart = (token) => {
     }
 }
 
-export const getAllCartItems = (reqData) => {
-    return async (dispatch) => {
-        dispatch({ type: GET_ALL_CART_ITEMS_REQUEST });
-        try {
-            const res = await api.get(`/api/carts/${reqData.cartId}/items`, {
-                headers: {
-                    Authorization: `Bearer ${reqData.token}`,
-                },
-            });
-            dispatch({ type: GET_ALL_CART_ITEMS_SUCCESS, payload: res.data });
-        } catch (error) {
-            dispatch({ type: GET_ALL_CART_ITEMS_FAILURE, payload: error })
-        }
-    }
-}
+
 
 export const addItemToCart = (reqData) => {
     return async (dispatch) => {
@@ -92,19 +78,4 @@ export const removeCartItem = ({ cartItemId, jwt }) => {
     }
 }
 
-export const clearCartAction = () => {
-    return async (dispatch) => {
-        dispatch({ type: CLEAR_CART_REQUEST });
-        try {
-            const { data } = await api.put(`/api/cart/clear`, {}, {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-                },
-            });
-            dispatch({ type: CLEAR_CART_SUCCESS, payload: data });
-        } catch (error) {
-            console.log("error", error)
-            dispatch({ type: CLEAR_CART_FAILURE, payload: error.message })
-        }
-    }
-}
+

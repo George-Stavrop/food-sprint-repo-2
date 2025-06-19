@@ -68,11 +68,7 @@ public class FoodServiceImpl implements FoodService{
     }
 
 
-    @Override
-    public List<Food> searchFood(String keyword) {
 
-        return foodRepository.searchFood(keyword);
-    }
 
     @Override
     public Food findFoodById(Long id) throws Exception {

@@ -153,7 +153,7 @@ const Cart = () => {
                 </div>
             )}
 
-            {/* Address Modal */}
+            {/* Φόρμα με πληροφορίες παραγγελίας */}
             <Modal open={openAddressModal} onClose={handleCloseAddressModal}>
                 <Box sx={style}>
                     <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>

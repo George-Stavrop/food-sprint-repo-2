@@ -22,8 +22,8 @@ public class PaymentServiceImpl implements PaymentService {
         SessionCreateParams params = SessionCreateParams.builder()
                 .addPaymentMethodType(SessionCreateParams.PaymentMethodType.CARD)
                 .setMode(SessionCreateParams.Mode.PAYMENT)
-                .setSuccessUrl("http://localhost:3000/payment/success/" + order.getId())
-                .setCancelUrl("http://localhost:3000/payment/failure")
+                .setSuccessUrl("http://foodsprint.ddns-ip.net/payment/success/" + order.getId())
+                .setCancelUrl("http://foodsprint.ddns-ip.net/payment/failure")
                 .addLineItem(
                         SessionCreateParams.LineItem.builder()
                                 .setQuantity(1L)
