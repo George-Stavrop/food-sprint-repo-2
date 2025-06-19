@@ -27,10 +27,8 @@ const RestaurantDetails = () => {
 
     const handleFilterCategory = (e, value) => {
         setSelectedCategory(value);
-        console.log(e.target.value, e.target.name, value)
     }
 
-    console.log("restaurant", restaurant)
 
     useEffect(() => {
         dispatch(getRestaurantById({ jwt, restaurantId: id }))

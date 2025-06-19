@@ -12,11 +12,9 @@ export const createOrderCard = (reqData) => {
                 },
             });
             if (data.payment_url) {
-                console.log("Redirecting to payment:", data.payment_url);
                 await new Promise((resolve) => setTimeout(resolve, 500));
                 window.location.href = data.payment_url;
             }
-            console.log("created order", data)
             dispatch({ type: CREATE_ORDER_SUCCESS, payload: data })
         } catch (error) {
             console.log("error", error);
@@ -36,7 +34,6 @@ export const createOrderCash = (reqData) => {
                 },
             });
 
-            console.log("created order", data)
             dispatch({ type: CREATE_ORDER_SUCCESS, payload: data })
 
         } catch (error) {
@@ -57,7 +54,6 @@ export const getUsersOrder = (jwt) => {
                 },
             });
 
-            console.log("users order", data)
             dispatch({ type: GET_USERS_ORDERS_SUCCESS, payload: data })
         } catch (error) {
             console.log("error", error);

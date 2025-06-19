@@ -13,7 +13,6 @@ export const getAllRestaurantsAction = (token) => {
                 },
             });
             dispatch({ type: GET_ALL_RESTAURANTS_SUCCESS, payload: data });
-            console.log(" all restaurants ", data);
         } catch (error) {
             console.log("error", error)
             dispatch({ type: GET_ALL_RESTAURANTS_FAILURE, payload: error });
@@ -96,7 +95,6 @@ export const getRestaurantsCategory = ({ jwt, restaurantId }) => {
                     Authorization: `Bearer ${jwt}`,
                 },
             });
-            console.log("restaurants  category", res.data)
             dispatch({ type: GET_RESTAURANTS_CATEGORY_SUCCESS, payload: res.data });
 
         } catch (error) {

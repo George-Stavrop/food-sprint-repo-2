@@ -1,5 +1,5 @@
 import { api } from "../../config/api"
-import { ADD_ITEM_TO_CART_FAILURE, ADD_ITEM_TO_CART_REQUEST, ADD_ITEM_TO_CART_SUCCESS, CLEAR_CART_FAILURE, CLEAR_CART_REQUEST, CLEAR_CART_SUCCESS, FIND_CART_FAILURE, FIND_CART_REQUEST, FIND_CART_SUCCESS, GET_ALL_CART_ITEMS_FAILURE, GET_ALL_CART_ITEMS_REQUEST, GET_ALL_CART_ITEMS_SUCCESS, REMOVE_CART_ITEM_FAILURE, REMOVE_CART_ITEM_REQUEST, REMOVE_CART_ITEM_SUCCESS, UPDATE_CART_ITEM_FAILURE, UPDATE_CART_ITEM_REQUEST, UPDATE_CART_ITEM_SUCCESS } from "./ActionType"
+import { ADD_ITEM_TO_CART_FAILURE, ADD_ITEM_TO_CART_REQUEST, ADD_ITEM_TO_CART_SUCCESS, FIND_CART_FAILURE, FIND_CART_REQUEST, FIND_CART_SUCCESS, REMOVE_CART_ITEM_FAILURE, REMOVE_CART_ITEM_REQUEST, REMOVE_CART_ITEM_SUCCESS, UPDATE_CART_ITEM_FAILURE, UPDATE_CART_ITEM_REQUEST, UPDATE_CART_ITEM_SUCCESS } from "./ActionType"
 
 export const findCart = (token) => {
     return async (dispatch) => {
@@ -10,7 +10,6 @@ export const findCart = (token) => {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            console.log("my cart", res.data)
             dispatch({ type: FIND_CART_SUCCESS, payload: res.data });
         } catch (error) {
             dispatch({ type: FIND_CART_FAILURE, payload: error })
@@ -30,7 +29,6 @@ export const addItemToCart = (reqData) => {
                     "Content-Type": "application/json"
                 },
             });
-            console.log("add item to cart", data)
             dispatch({ type: ADD_ITEM_TO_CART_SUCCESS, payload: data });
         } catch (error) {
             console.log("error", error)
@@ -43,15 +41,12 @@ export const updateCartItem = (reqData) => {
     return async (dispatch) => {
         dispatch({ type: UPDATE_CART_ITEM_REQUEST });
         try {
-            console.log("Sending request data:", JSON.stringify(reqData.data, null, 2));
-
             const { data } = await api.put(`/api/cart-item/update`, reqData.data, {
                 headers: {
                     Authorization: `Bearer ${reqData.jwt}`,
                     "Content-Type": "application/json"
                 },
             });
-            console.log("update cart item", data)
             dispatch({ type: UPDATE_CART_ITEM_SUCCESS, payload: data });
         } catch (error) {
             console.log("error", error)
@@ -69,7 +64,6 @@ export const removeCartItem = ({ cartItemId, jwt }) => {
                     Authorization: `Bearer ${jwt}`,
                 },
             });
-            console.log("remove cart item", data)
             dispatch({ type: REMOVE_CART_ITEM_SUCCESS, payload: cartItemId });
         } catch (error) {
             console.log("error", error)
