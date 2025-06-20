@@ -12,7 +12,6 @@ export const getIngredientsOfRestaurant = ({ id, jwt }) => {
                     },
                 }
             );
-            console.log("ingredients", res.data);
             dispatch({ type: GET_INGREDIENTS, payload: res.data })
         } catch (error) {
             console.log("error", error);
@@ -36,7 +35,6 @@ export const getIngredientCategory = ({ id, jwt }) => {
                     },
                 }
             );
-            console.log("ingredient category", res.data);
             dispatch({ type: GET_INGREDIENT_CATEGORY_SUCCESS, payload: res.data })
         } catch (error) {
             console.log("error", error);
@@ -56,7 +54,6 @@ export const updateStockOfIngredient = ({ id, jwt }) => {
                     },
                 }
             );
-
             dispatch({ type: UPDATE_STOCK, payload: data })
         } catch (error) {
             console.log("error", error);

@@ -14,8 +14,6 @@ export const Home = () => {
   const jwt = localStorage.getItem("jwt");
   const { restaurant } = useSelector(store => store);
 
-  console.log("restaurant", restaurant)
-
   useEffect(() => {
     if (jwt) {
       dispatch(getAllRestaurantsAction(jwt))

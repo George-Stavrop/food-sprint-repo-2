@@ -15,7 +15,6 @@ export const updateOrderStatus = ({ orderId, orderStatus, jwt }) => {
             );
 
             const updatedOrder = res.data;
-            console.log("updated order", updatedOrder);
 
             dispatch({ type: UPDATE_ORDER_STATUS_SUCCESS, payload: updatedOrder });
         } catch (error) {
@@ -39,9 +38,6 @@ export const fetchRestaurantOrder = ({ restaurantId, orderStatus, jwt }) => {
                 },
             }
             );
-
-            const orders = data;
-            console.log("restaurant order---", orders);
 
             dispatch({ type: GET_RESTAURANTS_ORDER_SUCCESS, payload: orders });
         } catch (error) {
