@@ -2,6 +2,14 @@
 
 Online restaurant ordering platform built with **Spring Boot**, **React**, **MySQL**, **Docker**, and **Kubernetes**.
 
+---
+
+## 📸 Screenshots
+
+> *(Add screenshots here)*
+
+---
+
 ## Overview
 
 Food Sprint is a full-stack ordering system that includes:
@@ -14,42 +22,41 @@ Food Sprint is a full-stack ordering system that includes:
 
 ## Features
 
-* User authentication and role-based access
-* Restaurant browsing and food ordering
-* Stripe payment integration
-* REST API backend
-* MySQL persistence
-* Containerized deployment
-* Kubernetes manifests with ConfigMaps, Secrets, Services, Deployments, and PVCs
+###  Customer
+- Browse restaurants and food products
+- Place and track orders
+- Manage personal account
+- Secure online payments via **Stripe**
+
+###  Admin Panel
+- Manage restaurant menu (add/edit/delete products)
+- View and manage incoming orders
+- Restaurant dashboard
+
+###  Security
+- JWT-based authentication & authorization
+- Role-based access control (Customer / Admin)
+- Spring Security integration
+
 
 ## Tech Stack
 
 ### Backend
 
-* Java 17
-* Spring Boot
-* Spring Web
-* Spring Data JPA
-* Spring Security
-* Validation
-* JWT
-* Stripe Java SDK
-* MySQL
-* H2 for tests
+* Java 21, Spring Boot, Spring Data JPA / Hibernate, Spring Security + JWT, Stripe API, MySQL, Maven
+
 
 ### Frontend
 
-* React
-* Nginx
-* Tailwind CSS
+* React, Redux, Axios, Nginx, Tailwind CSS
+
 
 ### Infrastructure
 
-* Docker
-* Docker Compose
-* Kubernetes
-* MicroK8s
-* MySQL persistent volume
+* Docker, Docker Compose, MicroK8s
+
+
+
 
 ## Project Structure
 
@@ -68,45 +75,28 @@ food-sprint/
 └── README.md
 ```
 
-## Prerequisites
 
-* Java 17+
+
+## Running the app
+
+### Prerequisites
+
+* Java 21+
 * Node.js 18+
 * Maven 3.9+
-* Docker
+* Docker, Docker compose
 * Kubernetes cluster or MicroK8s
-* kubectl
 
-## Local Development
 
-### Backend
 
-```bash
-cd backend
-mvn clean install
-mvn spring-boot:run
-```
-
-The backend runs on:
-
-```text
-http://localhost:8080
-```
-
-### Frontend
-
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-## Docker Compose
+### Docker Compose
 
 Run the full stack locally with:
 
 ```bash
+cd FoodSprint
 docker compose up -d
+
 ```
 
 ### Services
@@ -114,6 +104,36 @@ docker compose up -d
 * Frontend: `http://localhost:3000`
 * Backend: `http://localhost:8080`
 * MySQL: `localhost:3306`
+
+
+
+## API Testing (Postman)
+
+Import the collection from the `postman/` folder to explore and test all available endpoints.
+
+| File | Description |
+|---|---|
+| `FoodSprint.postman_collection.json` | All requests |
+
+> Authentication is handled automatically. Run **Signin** first — the JWT token is saved and applied to all subsequent requests.
+
+## Test Credentials
+| Role | Email | Password |
+|---|---|---|
+| Restaurant Owner | lafamiglia@gmail.com | lafamiglia |
+| Customer | fate_100@hotmail.com | 123456 |
+
+
+
+## API Documentation
+
+ Swagger UI is available at:
+
+```text
+http://localhost:8080/swagger-ui/index.html
+```
+
+
 
 ## Kubernetes Deployment
 
@@ -132,21 +152,55 @@ This project includes Kubernetes manifests designed for MicroK8s or any compatib
 
 ### Example apply order
 
+### Prerequisites
+```bash
+# Enable required addons
+microk8s enable dns storage ingress
+```
+
 ```bash
 kubectl apply -f k8s/secrets/
 kubectl apply -f k8s/configmaps/
-kubectl apply -f k8s/pv/
-kubectl apply -f k8s/deployments/
-kubectl apply -f k8s/services/
+kubectl apply -f k8s/db/
+kubectl apply -f k8s/springboot/
+kubectl apply -f k8s/react/
 ```
 
 ### Access the application
 
-If the frontend is exposed through NodePort:
+The frontend is exposed through NodePort:
 
 ```text
 http://<node-ip>:30007
 ```
+
+
+##  Architecture
+
+```
+                        ┌─────────────────┐
+                        │     Internet     │
+                        └────────┬────────┘
+                                 │
+                        ┌────────▼────────┐
+                        │   Nginx (React)  │
+                        │ Nodeport  :30007 │
+                        │ ClusterIP   :80  │
+                        └────────┬────────┘
+                                 │ proxy_pass /api/, /images/
+                        ┌────────▼────────┐
+                        │  Spring Boot     │
+                        │ ClusterIP :8080  │
+                        └────────┬────────┘
+                                 │
+                        ┌────────▼────────┐
+                        │     MySQL        │
+                        │  ClusterIP :3306 │
+                        │  + PVC (1Gi)     │
+                        └─────────────────┘
+```
+
+
 
 ## Kubernetes Configuration
 
@@ -167,12 +221,6 @@ Used for sensitive values such as:
 * Stripe API key
 * JWT secret
 
-## Important Notes
-
-* Do not commit real secrets to GitHub.
-* Use example secret files or create secrets manually with `kubectl`.
-* If you change MySQL credentials or database name after the PVC is created, you may need to delete the PVC so the database initializes again.
-* For production, prefer Flyway or Liquibase instead of `spring.jpa.hibernate.ddl-auto=update`.
 
 ## Example Kubernetes Secrets
 
@@ -230,33 +278,21 @@ data:
 * `MYSQL_USER`
 * `MYSQL_PASSWORD`
 
-## API Documentation
 
-If Springdoc OpenAPI is enabled, Swagger UI is available at:
-
-```text
-http://localhost:8080/swagger-ui/index.html
-```
-
-## Logging
-
-The backend uses standard Spring Boot logging through SLF4J / Logback.
-
-Recommended production settings:
-
-* `INFO` for business events
-* `DEBUG` for development
-* `ERROR` for failures and exceptions
 
 ## Future Improvements
 
 * Flyway migrations
-* Readiness and liveness probes
-* Resource limits and requests
 * Ingress controller
 * Horizontal Pod Autoscaling
 * Structured JSON logging
 * CI/CD pipeline
+
+
+## Author
+
+George Stavropoulos — [GitHub](https://github.com/George-Stavrop) | [LinkedIn](https://linkedin.com/in/...)
+
 
 ## License
 
