@@ -94,7 +94,7 @@ food-sprint/
 Run the full stack locally with:
 
 ```bash
-cd FoodSprint
+cd FoodSprint/docker
 docker compose up -d
 
 ```
@@ -115,13 +115,17 @@ Import the collection from the `postman/` folder to explore and test all availab
 |---|---|
 | `FoodSprint.postman_collection.json` | All requests |
 
-> Authentication is handled automatically. Run **Signin** first — the JWT token is saved and applied to all subsequent requests.
+> Authentication is handled automatically. Run **User_Signup** or **Restaurant_Signin** first — the JWT token is saved and applied to all subsequent requests.
 
-## Test Credentials
+## Test Customer and Restaurant owners
+### Restaurants and  owners accounts are preconfigured
 | Role | Email | Password |
 |---|---|---|
+| Customer | stavos@gmail.com | stavos123 |
 | Restaurant Owner | lafamiglia@gmail.com | lafamiglia |
-| Customer | fate_100@hotmail.com | 123456 |
+| Restaurant Owner | myburger@gmail.com | myburger |
+| Restaurant Owner | smokers@gmail.com | smokers |
+
 
 
 
